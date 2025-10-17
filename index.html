@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kader Café</title>
 <style>
-  /* 🌈 Style général */
   body {
     background: linear-gradient(45deg, #ff99cc, #99ccff);
     font-family: "Comic Sans MS", "Arial", cursive;
@@ -21,7 +20,6 @@
     margin-top: 20px;
     text-transform: uppercase;
     animation: clignote 1s infinite alternate;
-    padding: 0 10px;
   }
 
   @keyframes clignote {
@@ -29,6 +27,97 @@
     to { color: #66ffff; }
   }
 
-  /* 🖼️ Image responsive avec effet rétro */
   .photo {
-    margin-top:  30
+    margin-top: 30px;
+    max-width: 90%;
+    height: auto;
+    border: 5px dotted #fff;
+    border-radius: 20px;
+    box-shadow: 0 0 20px #ff00ff, 0 0 40px #00ffff;
+    transition: transform 0.3s;
+  }
+
+  .photo:hover {
+    transform: rotate(-3deg) scale(1.05);
+  }
+
+  audio {
+    margin-top: 25px;
+    width: 80%;
+    max-width: 300px;
+    border: 2px solid #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #fff;
+  }
+
+  .bandeau {
+    margin-top: 40px;
+    background: rgba(0,0,0,0.4);
+    overflow: hidden;
+    white-space: nowrap;
+    border-top: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    padding: 5px 0;
+  }
+
+  .texte-defilant {
+    display: inline-block;
+    padding-left: 100%;
+    animation: defile 25s linear infinite;
+    font-weight: bold;
+    font-size: clamp(0.9em, 2vw, 1.2em);
+  }
+
+  @keyframes defile {
+    from { transform: translateX(0); }
+    to { transform: translateX(-100%); }
+  }
+</style>
+</head>
+<body>
+
+<h1>★ Bienvenue sur le MySpace de Kader ★</h1>
+
+<img src="hmar_airmax.png" alt="hmar" class="photo">
+
+<audio id="player" controls autoplay>
+  <source src="sample-15s.mp3" type="audio/mpeg">
+  Ton navigateur ne supporte pas l’audio.
+</audio>
+
+<div class="bandeau">
+  <div class="texte-defilant" id="texte-defilant"></div>
+</div>
+
+<script>
+  const traductions = [
+    "Âne 🫏 (français)",
+    "Donkey 🐴 (anglais)",
+    "Esel 🇩🇪 (allemand)",
+    "Asno 🇪🇸 (espagnol)",
+    "Burro 🇮🇹 (italien)",
+    "Somar 🇹🇷 (turc)",
+    "Μάιρος 🇬🇷 (grec)",
+    "驴 🐴 (chinois)",
+    "ロバ 🇯🇵 (japonais)",
+    "حمـار 🐪 (arabe)",
+    "Мул 🇷🇺 (russe)"
+  ];
+
+  const texte = traductions.join(" — ");
+  const bandeau = document.getElementById("texte-defilant");
+  bandeau.textContent = texte + " — " + texte;
+
+  const player = document.getElementById("player");
+  window.addEventListener("load", () => {
+    const playPromise = player.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        console.log("Autoplay bloqué : interaction requise.");
+      });
+    }
+  });
+</script>
+
+</body>
+</html>
