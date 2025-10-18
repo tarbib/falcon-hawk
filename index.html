@@ -20,6 +20,7 @@
     margin-top: 20px;
     text-transform: uppercase;
     animation: clignote 1s infinite alternate;
+    padding: 0 10px;
   }
 
   @keyframes clignote {
@@ -27,8 +28,12 @@
     to { color: #66ffff; }
   }
 
-  .photo {
+  /* 🎥 Video instead of photo */
+  .video-container {
     margin-top: 30px;
+  }
+
+  video {
     max-width: 90%;
     height: auto;
     border: 5px dotted #fff;
@@ -37,7 +42,7 @@
     transition: transform 0.3s;
   }
 
-  .photo:hover {
+  video:hover {
     transform: rotate(-3deg) scale(1.05);
   }
 
@@ -72,13 +77,28 @@
     from { transform: translateX(0); }
     to { transform: translateX(-100%); }
   }
+
+  @media (max-width: 600px) {
+    body {
+      background: linear-gradient(45deg, #ff66cc, #6699ff);
+    }
+    video {
+      border-width: 3px;
+      box-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffff;
+    }
+  }
 </style>
 </head>
 <body>
 
 <h1>★ Bienvenue sur le MySpace de Kader ★</h1>
 
-<img src="hmar_airmax.png" alt="hmar" class="photo">
+<div class="video-container">
+  <video controls autoplay muted loop playsinline>
+    <source src="hmar_airmax.mp4" type="video/mp4">
+    Ton navigateur ne supporte pas la vidéo.
+  </video>
+</div>
 
 <audio id="player" controls autoplay>
   <source src="kader-est-dans-la-place.mp3" type="audio/mpeg">
@@ -90,6 +110,7 @@
 </div>
 
 <script>
+  // 🌍 Translations of "âne" in multiple languages
   const traductions = [
     "Âne 🫏 (français)",
     "Donkey 🐴 (anglais)",
@@ -104,16 +125,18 @@
     "Мул 🇷🇺 (russe)"
   ];
 
+  // 🧠 Generate scrolling text dynamically
   const texte = traductions.join(" — ");
   const bandeau = document.getElementById("texte-defilant");
   bandeau.textContent = texte + " — " + texte;
 
+  // 🔊 Try autoplay (browser dependent)
   const player = document.getElementById("player");
   window.addEventListener("load", () => {
     const playPromise = player.play();
     if (playPromise !== undefined) {
       playPromise.catch(() => {
-        console.log("Autoplay bloqué : interaction requise.");
+        console.log("Autoplay blocked: user interaction required.");
       });
     }
   });
