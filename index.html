@@ -12,6 +12,9 @@
     text-align: center;
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
   }
 
   h1 {
@@ -21,6 +24,8 @@
     text-transform: uppercase;
     animation: clignote 1s infinite alternate;
     padding: 0 10px;
+    position: relative;
+    z-index: 2;
   }
 
   @keyframes clignote {
@@ -28,9 +33,10 @@
     to { color: #66ffff; }
   }
 
-  /* 🎥 Video instead of photo */
   .video-container {
     margin-top: 30px;
+    position: relative;
+    z-index: 2;
   }
 
   video {
@@ -53,6 +59,8 @@
     border: 2px solid #fff;
     border-radius: 10px;
     box-shadow: 0 0 10px #fff;
+    position: relative;
+    z-index: 2;
   }
 
   .bandeau {
@@ -63,6 +71,8 @@
     border-top: 2px solid #fff;
     border-bottom: 2px solid #fff;
     padding: 5px 0;
+    position: relative;
+    z-index: 2;
   }
 
   .texte-defilant {
@@ -78,6 +88,92 @@
     to { transform: translateX(-100%); }
   }
 
+  /* Emojis verticaux sur toute la hauteur */
+  .emoji-colonne {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .emoji-gauche {
+    left: 10px;
+    font-size: 2em;
+  }
+
+  .emoji-droit {
+    right: 10px;
+    font-size: 2em;
+  }
+
+  .emoji-gauche span {
+    animation: clignoter-emoji 1.5s infinite alternate;
+  }
+
+  .emoji-droit span {
+    animation: tourner 3s infinite linear;
+  }
+
+  @keyframes clignoter-emoji {
+    from { transform: translateY(0) scale(1); opacity: 0.7; }
+    to { transform: translateY(-5px) scale(1.1); opacity: 1; }
+  }
+
+  @keyframes tourner {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  /* Effet de fumée réaliste */
+  .fumee-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .fumee {
+    position: absolute;
+    bottom: -50px;
+    left: 0;
+    width: 100%;
+    height: 200px;
+    background:
+      radial-gradient(ellipse at 10% 100%, rgba(200, 200, 200, 0.3) 0%, transparent 70%),
+      radial-gradient(ellipse at 30% 90%, rgba(200, 200, 200, 0.2) 0%, transparent 60%),
+      radial-gradient(ellipse at 50% 100%, rgba(200, 200, 200, 0.3) 0%, transparent 70%),
+      radial-gradient(ellipse at 70% 95%, rgba(200, 200, 200, 0.2) 0%, transparent 60%),
+      radial-gradient(ellipse at 90% 100%, rgba(200, 200, 200, 0.3) 0%, transparent 70%);
+    animation: monter 10s linear infinite;
+    opacity: 0.6;
+    filter: blur(20px);
+  }
+
+  @keyframes monter {
+    0% {
+      transform: translateY(0) scale(0.8);
+      opacity: 0.6;
+    }
+    50% {
+      opacity: 0.3;
+    }
+    100% {
+      transform: translateY(-400px) scale(1.2);
+      opacity: 0;
+    }
+  }
+
   @media (max-width: 600px) {
     body {
       background: linear-gradient(45deg, #ff66cc, #6699ff);
@@ -86,61 +182,84 @@
       border-width: 3px;
       box-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffff;
     }
+    .emoji-colonne {
+      width: 20px;
+      font-size: 1.5em;
+    }
   }
 </style>
 </head>
 <body>
+  <!-- Emojis verticaux -->
+  <div class="emoji-colonne emoji-gauche">
+    <span>🚬</span>
+    <span>🚬</span>
+    <span>🚬</span>
+    <span>🚬</span>
+    <span>🚬</span>
+    <span>🚬</span>
+    <span>🚬</span>
+  </div>
+  <div class="emoji-colonne emoji-droit">
+    <span>🍟</span>
+    <span>🍟</span>
+    <span>🍟</span>
+    <span>🍟</span>
+    <span>🍟</span>
+    <span>🍟</span>
+    <span>🍟</span>
+  </div>
 
-<h1>★ Bienvenue sur le MySpace de Kader ★</h1>
+  <!-- Effet de fumée -->
+  <div class="fumee-container">
+    <div class="fumee"></div>
+  </div>
 
-<div class="video-container">
-  <video controls autoplay muted loop playsinline>
-    <source src="hmar_airmax.mp4" type="video/mp4">
-    Ton navigateur ne supporte pas la vidéo.
-  </video>
-</div>
+  <h1>★ Bienvenue sur le MySpace de Kader ★</h1>
 
-<audio id="player" controls autoplay>
-  <source src="kader-est-dans-la-place.mp3" type="audio/mpeg">
-  Ton navigateur ne supporte pas l’audio.
-</audio>
+  <div class="video-container">
+    <video controls autoplay muted loop playsinline>
+      <source src="hmar_airmax.mp4" type="video/mp4">
+      Ton navigateur ne supporte pas la vidéo.
+    </video>
+  </div>
 
-<div class="bandeau">
-  <div class="texte-defilant" id="texte-defilant"></div>
-</div>
+  <audio id="player" controls autoplay>
+    <source src="kader-est-dans-la-place.mp3" type="audio/mpeg">
+    Ton navigateur ne supporte pas l’audio.
+  </audio>
 
-<script>
-  // 🌍 Translations of "âne" in multiple languages
-  const traductions = [
-    "Âne 🫏 (français)",
-    "Donkey 🐴 (anglais)",
-    "Esel 🇩🇪 (allemand)",
-    "Asno 🇪🇸 (espagnol)",
-    "Burro 🇮🇹 (italien)",
-    "Somar 🇹🇷 (turc)",
-    "Μάιρος 🇬🇷 (grec)",
-    "驴 🐴 (chinois)",
-    "ロバ 🇯🇵 (japonais)",
-    "حمـار 🐪 (arabe)",
-    "Мул 🇷🇺 (russe)"
-  ];
+  <div class="bandeau">
+    <div class="texte-defilant" id="texte-defilant"></div>
+  </div>
 
-  // 🧠 Generate scrolling text dynamically
-  const texte = traductions.join(" — ");
-  const bandeau = document.getElementById("texte-defilant");
-  bandeau.textContent = texte + " — " + texte;
+  <script>
+    const traductions = [
+      "Âne 🫏 (français)",
+      "Donkey 🐴 (anglais)",
+      "Esel 🇩🇪 (allemand)",
+      "Asno 🇪🇸 (espagnol)",
+      "Burro 🇮🇹 (italien)",
+      "Somar 🇹🇷 (turc)",
+      "Μάιρος 🇬🇷 (grec)",
+      "驴 🐴 (chinois)",
+      "ロバ 🇯🇵 (japonais)",
+      "حمـار 🐪 (arabe)",
+      "Мул 🇷🇺 (russe)"
+    ];
+    const texte = traductions.join(" — ");
+    const bandeau = document.getElementById("texte-defilant");
+    bandeau.textContent = texte + " — " + texte;
 
-  // 🔊 Try autoplay (browser dependent)
-  const player = document.getElementById("player");
-  window.addEventListener("load", () => {
-    const playPromise = player.play();
-    if (playPromise !== undefined) {
-      playPromise.catch(() => {
-        console.log("Autoplay blocked: user interaction required.");
-      });
-    }
-  });
-</script>
-
+    const player = document.getElementById("player");
+    window.addEventListener("load", () => {
+      const playPromise = player.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          console.log("Autoplay blocked: user interaction required.");
+        });
+      }
+    });
+  </script>
 </body>
 </html>
