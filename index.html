@@ -16,7 +16,6 @@
     position: relative;
     min-height: 100vh;
   }
-
   h1 {
     font-size: clamp(1.8em, 5vw, 3em);
     text-shadow: 2px 2px #000;
@@ -27,19 +26,16 @@
     position: relative;
     z-index: 2;
   }
-
   @keyframes clignote {
     from { color: #ff66ff; }
     to { color: #66ffff; }
   }
-
-  .video-container {
+  .image-container {
     margin-top: 30px;
     position: relative;
     z-index: 2;
   }
-
-  video {
+  img {
     max-width: 90%;
     height: auto;
     border: 5px dotted #fff;
@@ -47,11 +43,9 @@
     box-shadow: 0 0 20px #ff00ff, 0 0 40px #00ffff;
     transition: transform 0.3s;
   }
-
-  video:hover {
+  img:hover {
     transform: rotate(-3deg) scale(1.05);
   }
-
   audio {
     margin-top: 25px;
     width: 80%;
@@ -62,32 +56,6 @@
     position: relative;
     z-index: 2;
   }
-
-  .bandeau {
-    margin-top: 40px;
-    background: rgba(0,0,0,0.4);
-    overflow: hidden;
-    white-space: nowrap;
-    border-top: 2px solid #fff;
-    border-bottom: 2px solid #fff;
-    padding: 5px 0;
-    position: relative;
-    z-index: 2;
-  }
-
-  .texte-defilant {
-    display: inline-block;
-    padding-left: 100%;
-    animation: defile 25s linear infinite;
-    font-weight: bold;
-    font-size: clamp(0.9em, 2vw, 1.2em);
-  }
-
-  @keyframes defile {
-    from { transform: translateX(0); }
-    to { transform: translateX(-100%); }
-  }
-
   /* Emojis verticaux sur toute la hauteur */
   .emoji-colonne {
     position: fixed;
@@ -102,35 +70,28 @@
     pointer-events: none;
     z-index: 1;
   }
-
   .emoji-gauche {
     left: 10px;
     font-size: 2em;
   }
-
   .emoji-droit {
     right: 10px;
     font-size: 2em;
   }
-
   .emoji-gauche span {
     animation: clignoter-emoji 1.5s infinite alternate;
   }
-
   .emoji-droit span {
     animation: tourner 3s infinite linear;
   }
-
   @keyframes clignoter-emoji {
     from { transform: translateY(0) scale(1); opacity: 0.7; }
     to { transform: translateY(-5px) scale(1.1); opacity: 1; }
   }
-
   @keyframes tourner {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
   }
-
   /* Effet de fumée réaliste */
   .fumee-container {
     position: fixed;
@@ -142,7 +103,6 @@
     z-index: 0;
     overflow: hidden;
   }
-
   .fumee {
     position: absolute;
     bottom: -50px;
@@ -159,7 +119,6 @@
     opacity: 0.6;
     filter: blur(20px);
   }
-
   @keyframes monter {
     0% {
       transform: translateY(0) scale(0.8);
@@ -173,12 +132,11 @@
       opacity: 0;
     }
   }
-
   @media (max-width: 600px) {
     body {
       background: linear-gradient(45deg, #ff66cc, #6699ff);
     }
-    video {
+    img {
       border-width: 3px;
       box-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffff;
     }
@@ -209,48 +167,19 @@
     <span>🍟</span>
     <span>🍟</span>
   </div>
-
   <!-- Effet de fumée -->
   <div class="fumee-container">
     <div class="fumee"></div>
   </div>
-
   <h1>★ Bienvenue sur le MySpace de Kader ★</h1>
-
-  <div class="video-container">
-    <video controls autoplay muted loop playsinline>
-      <source src="hmar_airmax.mp4" type="video/mp4">
-      Ton navigateur ne supporte pas la vidéo.
-    </video>
+  <div class="image-container">
+    <img src="IMG_1270.jpg" alt="Kader Image">
   </div>
-
   <audio id="player" controls autoplay>
     <source src="kader-est-dans-la-place.mp3" type="audio/mpeg">
     Ton navigateur ne supporte pas l’audio.
   </audio>
-
-  <div class="bandeau">
-    <div class="texte-defilant" id="texte-defilant"></div>
-  </div>
-
   <script>
-    const traductions = [
-      "Âne 🫏 (français)",
-      "Donkey 🐴 (anglais)",
-      "Esel 🇩🇪 (allemand)",
-      "Asno 🇪🇸 (espagnol)",
-      "Burro 🇮🇹 (italien)",
-      "Somar 🇹🇷 (turc)",
-      "Μάιρος 🇬🇷 (grec)",
-      "驴 🐴 (chinois)",
-      "ロバ 🇯🇵 (japonais)",
-      "حمـار 🐪 (arabe)",
-      "Мул 🇷🇺 (russe)"
-    ];
-    const texte = traductions.join(" — ");
-    const bandeau = document.getElementById("texte-defilant");
-    bandeau.textContent = texte + " — " + texte;
-
     const player = document.getElementById("player");
     window.addEventListener("load", () => {
       const playPromise = player.play();
