@@ -30,8 +30,18 @@
     from { color: #ff66ff; }
     to { color: #66ffff; }
   }
+  audio {
+    margin-top: 10px;
+    width: 80%;
+    max-width: 300px;
+    border: 2px solid #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #fff;
+    position: relative;
+    z-index: 2;
+  }
   .image-container {
-    margin-top: 30px;
+    margin-top: 20px;
     position: relative;
     z-index: 2;
   }
@@ -45,16 +55,6 @@
   }
   img:hover {
     transform: rotate(-3deg) scale(1.05);
-  }
-  audio {
-    margin-top: 25px;
-    width: 80%;
-    max-width: 300px;
-    border: 2px solid #fff;
-    border-radius: 10px;
-    box-shadow: 0 0 10px #fff;
-    position: relative;
-    z-index: 2;
   }
   /* Emojis verticaux sur toute la hauteur */
   .emoji-colonne {
@@ -172,13 +172,13 @@
     <div class="fumee"></div>
   </div>
   <h1>★ Bienvenue sur l'Internet de Kader ★</h1>
-  <div class="image-container">
-    <img src="IMG_1829.jpg" alt="Kader Image">
-  </div>
   <audio id="player" controls autoplay>
     <source src="kader-est-dans-la-place.mp3" type="audio/mpeg">
     Ton navigateur ne supporte pas l’audio.
   </audio>
+  <div class="image-container">
+    <img src="IMG_1829.jpg" alt="Kader Image">
+  </div>
   <script>
     const player = document.getElementById("player");
     window.addEventListener("load", () => {
