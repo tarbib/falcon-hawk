@@ -2,12 +2,19 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kader Café</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Kader Cafe</title>
 <style>
+  * {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
   body {
-    background: linear-gradient(45deg, #ff99cc, #99ccff);
-    font-family: "Comic Sans MS", "Arial", cursive;
+    background: linear-gradient(45deg, #ff99cc, #99ccff, #ffcc99, #cc99ff);
+    background-size: 400% 400%;
+    animation: gradient-shift 8s ease infinite;
+    font-family: "Comic Sans MS", "Chalkboard SE", "Arial", cursive;
     color: white;
     text-align: center;
     margin: 0;
@@ -15,84 +22,395 @@
     overflow-x: hidden;
     position: relative;
     min-height: 100vh;
+    min-height: 100dvh;
   }
-  h1 {
-    font-size: clamp(1.8em, 5vw, 3em);
-    text-shadow: 2px 2px #000;
-    margin-top: 20px;
-    text-transform: uppercase;
-    animation: clignote 1s infinite alternate;
-    padding: 0 10px;
+  
+  @keyframes gradient-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
+  .main-content {
     position: relative;
-    z-index: 2;
+    z-index: 10;
+    padding: 15px;
+    padding-bottom: 100px;
   }
+  
+  h1 {
+    font-size: clamp(1.4em, 6vw, 3em);
+    text-shadow: 3px 3px 0 #000, -1px -1px 0 #ff00ff, 1px -1px 0 #00ffff;
+    margin: 15px 0;
+    text-transform: uppercase;
+    animation: clignote 0.8s infinite alternate, wobble 2s ease-in-out infinite;
+    padding: 10px;
+    line-height: 1.3;
+  }
+  
   @keyframes clignote {
     from { color: #ff66ff; }
     to { color: #66ffff; }
   }
-  audio {
-    margin-top: 10px;
-    width: 80%;
-    max-width: 300px;
-    border: 2px solid #fff;
-    border-radius: 10px;
-    box-shadow: 0 0 10px #fff;
-    position: relative;
-    z-index: 2;
+  
+  @keyframes wobble {
+    0%, 100% { transform: rotate(-2deg); }
+    50% { transform: rotate(2deg); }
   }
+  
+  .stars {
+    color: #ffff00;
+    text-shadow: 0 0 10px #ffff00, 0 0 20px #ff8800;
+    animation: pulse-star 0.5s infinite alternate;
+    display: inline-block;
+  }
+  
+  @keyframes pulse-star {
+    from { transform: scale(1); }
+    to { transform: scale(1.3); }
+  }
+  
+  .winamp-player {
+    background: linear-gradient(180deg, #1e1e1e 0%, #2a2a2a 50%, #1a1a1a 100%);
+    border: 2px solid #3a3a3a;
+    border-radius: 3px;
+    padding: 0;
+    margin: 20px auto;
+    max-width: 275px;
+    box-shadow: 
+      inset 1px 1px 0 #4a4a4a,
+      inset -1px -1px 0 #0a0a0a,
+      0 5px 20px rgba(0,0,0,0.5);
+    font-family: "Arial", sans-serif;
+    overflow: hidden;
+  }
+  
+  .winamp-titlebar {
+    background: linear-gradient(180deg, #4a6a9c 0%, #2a4a7c 50%, #1a3a6c 100%);
+    padding: 2px 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #0a0a0a;
+  }
+  
+  .winamp-title {
+    color: #fff;
+    font-size: 9px;
+    font-weight: bold;
+    text-shadow: 1px 1px 0 #000;
+    letter-spacing: 0.5px;
+  }
+  
+  .winamp-buttons {
+    display: flex;
+    gap: 1px;
+  }
+  
+  .winamp-btn {
+    width: 9px;
+    height: 9px;
+    background: linear-gradient(180deg, #8a8a8a 0%, #5a5a5a 100%);
+    border: 1px outset #aaa;
+    font-size: 6px;
+    line-height: 7px;
+    text-align: center;
+    cursor: pointer;
+    color: #000;
+  }
+  
+  .winamp-display {
+    background: #0a1a0a;
+    margin: 4px;
+    padding: 6px 8px;
+    border: 1px inset #0a0a0a;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .winamp-visualizer {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 2px;
+    height: 25px;
+    margin-bottom: 6px;
+  }
+  
+  .viz-bar {
+    width: 6px;
+    background: linear-gradient(180deg, #ff0000 0%, #ffaa00 30%, #aaff00 60%, #00ff00 100%);
+    border-radius: 1px 1px 0 0;
+    transition: height 0.08s ease-out;
+    box-shadow: 0 0 4px rgba(0, 255, 0, 0.5);
+  }
+  
+  .winamp-time {
+    color: #00ff00;
+    font-family: "Courier New", monospace;
+    font-size: 20px;
+    font-weight: bold;
+    text-shadow: 0 0 8px #00ff00;
+    letter-spacing: 2px;
+  }
+  
+  .winamp-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .winamp-bitrate {
+    color: #00cc00;
+    font-size: 9px;
+    font-family: "Courier New", monospace;
+  }
+  
+  .winamp-stereo {
+    color: #00cc00;
+    font-size: 9px;
+    font-family: "Courier New", monospace;
+  }
+  
+  .winamp-scroll {
+    background: #0a1a0a;
+    margin: 0 4px;
+    padding: 3px 6px;
+    border: 1px inset #0a0a0a;
+    overflow: hidden;
+  }
+  
+  .winamp-scroll-text {
+    color: #00ff00;
+    font-size: 11px;
+    font-family: "Courier New", monospace;
+    white-space: nowrap;
+    animation: winamp-scroll 12s linear infinite;
+    display: inline-block;
+    text-shadow: 0 0 4px #00ff00;
+  }
+  
+  @keyframes winamp-scroll {
+    0% { transform: translateX(250px); }
+    100% { transform: translateX(-100%); }
+  }
+  
+  .winamp-seek {
+    margin: 6px 4px;
+    position: relative;
+  }
+  
+  .winamp-seek-bg {
+    height: 8px;
+    background: linear-gradient(180deg, #1a1a1a 0%, #2a2a2a 50%, #1a1a1a 100%);
+    border: 1px inset #0a0a0a;
+    border-radius: 2px;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  
+  .winamp-seek-progress {
+    height: 100%;
+    background: linear-gradient(180deg, #6a8aca 0%, #4a6aaa 50%, #3a5a9a 100%);
+    width: 0%;
+    transition: width 0.1s linear;
+    position: relative;
+  }
+  
+  .winamp-seek-progress::after {
+    content: '';
+    position: absolute;
+    right: -4px;
+    top: -2px;
+    width: 8px;
+    height: 12px;
+    background: linear-gradient(180deg, #ddd 0%, #888 100%);
+    border: 1px outset #aaa;
+    border-radius: 2px;
+  }
+  
+  .winamp-controls {
+    display: flex;
+    justify-content: center;
+    gap: 3px;
+    padding: 6px;
+    background: linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 100%);
+  }
+  
+  .winamp-control-btn {
+    width: 28px;
+    height: 20px;
+    background: linear-gradient(180deg, #5a5a5a 0%, #3a3a3a 50%, #4a4a4a 100%);
+    border: 1px outset #6a6a6a;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.1s;
+  }
+  
+  .winamp-control-btn:active {
+    border-style: inset;
+    background: linear-gradient(180deg, #3a3a3a 0%, #4a4a4a 50%, #3a3a3a 100%);
+  }
+  
+  .winamp-control-btn svg {
+    width: 12px;
+    height: 12px;
+    fill: #ddd;
+  }
+  
+  .winamp-control-btn:hover svg {
+    fill: #fff;
+  }
+  
+  .winamp-control-btn.playing svg {
+    fill: #00ff00;
+  }
+  
+  .winamp-volume {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 8px 8px;
+    background: linear-gradient(180deg, #1a1a1a 0%, #2a2a2a 100%);
+  }
+  
+  .winamp-volume-label {
+    color: #888;
+    font-size: 8px;
+    font-family: "Arial", sans-serif;
+  }
+  
+  .winamp-volume-bar {
+    flex: 1;
+    height: 6px;
+    background: linear-gradient(180deg, #1a1a1a 0%, #2a2a2a 100%);
+    border: 1px inset #0a0a0a;
+    border-radius: 2px;
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+  }
+  
+  .winamp-volume-segment {
+    flex: 1;
+    height: 100%;
+    margin-right: 1px;
+    background: #1a1a1a;
+    transition: background 0.1s;
+  }
+  
+  .winamp-volume-segment.active {
+    background: linear-gradient(180deg, #4a9a4a 0%, #2a6a2a 100%);
+    box-shadow: 0 0 3px rgba(0, 255, 0, 0.3);
+  }
+  
+  .winamp-volume-segment:last-child {
+    margin-right: 0;
+  }
+  
+  .winamp-eq-toggle {
+    color: #888;
+    font-size: 8px;
+    cursor: pointer;
+    padding: 2px 4px;
+    border: 1px outset #444;
+    background: #2a2a2a;
+    border-radius: 2px;
+  }
+  
+  .winamp-eq-toggle.active {
+    color: #00ff00;
+    border-style: inset;
+  }
+  
   .image-container {
-    margin-top: 20px;
-    position: relative;
-    z-index: 2;
+    margin: 25px auto;
+    padding: 15px;
+    max-width: 95%;
   }
+  
+  .image-frame {
+    background: linear-gradient(45deg, #ff00ff, #ffff00, #00ffff, #ff00ff);
+    background-size: 300% 300%;
+    animation: border-dance 3s linear infinite;
+    padding: 8px;
+    border-radius: 25px;
+    display: inline-block;
+    box-shadow: 0 0 30px rgba(255, 0, 255, 0.8), 0 0 60px rgba(0, 255, 255, 0.5);
+  }
+  
+  @keyframes border-dance {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 300% 50%; }
+  }
+  
   img {
-    max-width: 90%;
+    max-width: 100%;
+    width: 100%;
+    max-width: 500px;
     height: auto;
-    border: 5px dotted #fff;
-    border-radius: 20px;
-    box-shadow: 0 0 20px #ff00ff, 0 0 40px #00ffff;
-    transition: transform 0.3s;
+    border-radius: 18px;
+    display: block;
+    transition: transform 0.3s ease;
   }
-  img:hover {
-    transform: rotate(-3deg) scale(1.05);
+  
+  img:active {
+    transform: scale(0.98);
   }
-  /* Emojis verticaux sur toute la hauteur */
+  
+  @media (hover: hover) {
+    img:hover {
+      transform: rotate(-3deg) scale(1.03);
+    }
+  }
+  
   .emoji-colonne {
     position: fixed;
     top: 0;
     bottom: 0;
-    width: 40px;
+    width: 35px;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
-    padding: 10px 0;
     pointer-events: none;
-    z-index: 1;
+    z-index: 5;
   }
+  
   .emoji-gauche {
-    left: 10px;
-    font-size: 2em;
+    left: 5px;
   }
+  
   .emoji-droit {
-    right: 10px;
-    font-size: 2em;
+    right: 5px;
   }
+  
+  .emoji-colonne span {
+    font-size: clamp(1.2em, 4vw, 2em);
+    display: block;
+  }
+  
   .emoji-gauche span {
     animation: clignoter-emoji 1.5s infinite alternate;
   }
+  
   .emoji-droit span {
     animation: tourner 3s infinite linear;
   }
+  
   @keyframes clignoter-emoji {
     from { transform: translateY(0) scale(1); opacity: 0.7; }
-    to { transform: translateY(-5px) scale(1.1); opacity: 1; }
+    to { transform: translateY(-8px) scale(1.2); opacity: 1; }
   }
+  
   @keyframes tourner {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
   }
-  /* Effet de fumée réaliste */
+  
   .fumee-container {
     position: fixed;
     bottom: 0;
@@ -100,87 +418,411 @@
     width: 100%;
     height: 100%;
     pointer-events: none;
-    z-index: 0;
+    z-index: 1;
     overflow: hidden;
   }
+  
   .fumee {
     position: absolute;
-    bottom: -50px;
+    bottom: -100px;
     left: 0;
     width: 100%;
-    height: 200px;
+    height: 250px;
     background:
-      radial-gradient(ellipse at 10% 100%, rgba(200, 200, 200, 0.3) 0%, transparent 70%),
-      radial-gradient(ellipse at 30% 90%, rgba(200, 200, 200, 0.2) 0%, transparent 60%),
-      radial-gradient(ellipse at 50% 100%, rgba(200, 200, 200, 0.3) 0%, transparent 70%),
-      radial-gradient(ellipse at 70% 95%, rgba(200, 200, 200, 0.2) 0%, transparent 60%),
-      radial-gradient(ellipse at 90% 100%, rgba(200, 200, 200, 0.3) 0%, transparent 70%);
-    animation: monter 10s linear infinite;
-    opacity: 0.6;
-    filter: blur(20px);
+      radial-gradient(ellipse at 10% 100%, rgba(200, 200, 200, 0.4) 0%, transparent 70%),
+      radial-gradient(ellipse at 30% 90%, rgba(200, 200, 200, 0.3) 0%, transparent 60%),
+      radial-gradient(ellipse at 50% 100%, rgba(200, 200, 200, 0.4) 0%, transparent 70%),
+      radial-gradient(ellipse at 70% 95%, rgba(200, 200, 200, 0.3) 0%, transparent 60%),
+      radial-gradient(ellipse at 90% 100%, rgba(200, 200, 200, 0.4) 0%, transparent 70%);
+    animation: monter 12s linear infinite;
+    opacity: 0.7;
+    filter: blur(25px);
   }
+  
+  .fumee:nth-child(2) {
+    animation-delay: -4s;
+    opacity: 0.5;
+  }
+  
+  .fumee:nth-child(3) {
+    animation-delay: -8s;
+    opacity: 0.6;
+  }
+  
   @keyframes monter {
     0% {
-      transform: translateY(0) scale(0.8);
-      opacity: 0.6;
+      transform: translateY(0) scale(0.8) translateX(0);
+      opacity: 0.7;
+    }
+    25% {
+      transform: translateY(-100px) scale(0.9) translateX(20px);
     }
     50% {
-      opacity: 0.3;
+      opacity: 0.4;
+      transform: translateY(-200px) scale(1) translateX(-10px);
+    }
+    75% {
+      transform: translateY(-300px) scale(1.1) translateX(15px);
     }
     100% {
-      transform: translateY(-400px) scale(1.2);
+      transform: translateY(-500px) scale(1.3) translateX(0);
       opacity: 0;
     }
   }
-  @media (max-width: 600px) {
-    body {
-      background: linear-gradient(45deg, #ff66cc, #6699ff);
+  
+  .marquee-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(90deg, #ff0000, #ff8800, #ffff00, #00ff00, #0088ff, #8800ff, #ff0000);
+    background-size: 200% 100%;
+    animation: marquee-bg 3s linear infinite;
+    padding: 12px 0;
+    z-index: 20;
+    border-top: 3px solid #fff;
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.3);
+  }
+  
+  @keyframes marquee-bg {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+  }
+  
+  .marquee-text {
+    white-space: nowrap;
+    animation: scroll-text 15s linear infinite;
+    font-size: clamp(0.9em, 3vw, 1.2em);
+    font-weight: bold;
+    text-shadow: 2px 2px #000;
+    display: inline-block;
+    padding-left: 100%;
+  }
+  
+  @keyframes scroll-text {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+  }
+  
+  .sparkle {
+    position: fixed;
+    pointer-events: none;
+    z-index: 15;
+    font-size: 1.5em;
+    animation: sparkle-fall 3s linear forwards;
+  }
+  
+  @keyframes sparkle-fall {
+    0% { 
+      opacity: 1; 
+      transform: translateY(0) rotate(0deg) scale(1);
     }
-    img {
-      border-width: 3px;
-      box-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffff;
+    100% { 
+      opacity: 0; 
+      transform: translateY(100vh) rotate(720deg) scale(0.3);
     }
+  }
+  
+  .counter {
+    background: rgba(0,0,0,0.5);
+    border: 2px solid #ffff00;
+    border-radius: 10px;
+    padding: 8px 15px;
+    margin: 15px auto;
+    display: inline-block;
+    font-size: clamp(0.8em, 2.5vw, 1em);
+    animation: blink-border 1s infinite;
+  }
+  
+  @keyframes blink-border {
+    0%, 100% { border-color: #ffff00; }
+    50% { border-color: #ff00ff; }
+  }
+  
+  .guestbook-btn {
+    background: linear-gradient(180deg, #ffcc00, #ff6600);
+    border: 3px outset #ffcc00;
+    color: #000;
+    font-family: "Comic Sans MS", cursive;
+    font-size: clamp(0.9em, 3vw, 1.1em);
+    font-weight: bold;
+    padding: 12px 25px;
+    margin: 15px 10px;
+    cursor: pointer;
+    border-radius: 10px;
+    text-shadow: 1px 1px #fff;
+    box-shadow: 3px 3px 0 #000;
+    transition: all 0.1s;
+    display: inline-block;
+    text-decoration: none;
+  }
+  
+  .guestbook-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 #000;
+  }
+  
+  @media (max-width: 480px) {
     .emoji-colonne {
-      width: 20px;
-      font-size: 1.5em;
+      width: 28px;
+    }
+    
+    .main-content {
+      padding: 10px 5px;
+      padding-bottom: 80px;
+    }
+    
+    .winamp-player {
+      margin: 15px 10px;
+      max-width: calc(100% - 20px);
+    }
+    
+    .image-container {
+      padding: 10px 5px;
+    }
+    
+    .image-frame {
+      padding: 5px;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .main-content {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    .emoji-colonne {
+      width: 50px;
+    }
+    
+    .emoji-colonne span {
+      font-size: 2.5em;
     }
   }
 </style>
 </head>
 <body>
-  <!-- Emojis verticaux -->
   <div class="emoji-colonne emoji-gauche">
-    <span>🚬</span>
-    <span>🚬</span>
-    <span>🚬</span>
-    <span>🚬</span>
-    <span>🚬</span>
-    <span>🚬</span>
-    <span>🚬</span>
+    <span>&#x1F6AC;</span>
+    <span>&#x2615;</span>
+    <span>&#x1F6AC;</span>
+    <span>&#x2615;</span>
+    <span>&#x1F6AC;</span>
+    <span>&#x2615;</span>
+    <span>&#x1F6AC;</span>
   </div>
+  
   <div class="emoji-colonne emoji-droit">
-    <span>🍟</span>
-    <span>🍟</span>
-    <span>🍟</span>
-    <span>🍟</span>
-    <span>🍟</span>
-    <span>🍟</span>
-    <span>🍟</span>
+    <span>&#x1F35F;</span>
+    <span>&#x1F355;</span>
+    <span>&#x1F35F;</span>
+    <span>&#x1F355;</span>
+    <span>&#x1F35F;</span>
+    <span>&#x1F355;</span>
+    <span>&#x1F35F;</span>
   </div>
-  <!-- Effet de fumée -->
+  
   <div class="fumee-container">
     <div class="fumee"></div>
+    <div class="fumee"></div>
+    <div class="fumee"></div>
   </div>
-  <h1>★ Bienvenue sur l'Internet de Kader ★</h1>
-  <audio id="player" controls autoplay>
-    <source src="kader-est-dans-la-place.mp3" type="audio/mpeg">
-    Ton navigateur ne supporte pas l’audio.
-  </audio>
-  <div class="image-container">
-    <img src="IMG_1829.jpg" alt="Kader Image">
+  
+  <div class="main-content">
+    <h1><span class="stars">&#x2605;</span> Bienvenue sur l'Internet de Kader <span class="stars">&#x2605;</span></h1>
+    
+    <div class="counter">
+      Visiteurs: <span id="visitor-count">000000</span>
+    </div>
+    
+    <div class="winamp-player">
+      <div class="winamp-titlebar">
+        <span class="winamp-title">WINAMP</span>
+        <div class="winamp-buttons">
+          <div class="winamp-btn">_</div>
+          <div class="winamp-btn">x</div>
+        </div>
+      </div>
+      
+      <div class="winamp-display">
+        <div class="winamp-visualizer" id="visualizer"></div>
+        <div class="winamp-info">
+          <span class="winamp-time" id="time-display">00:00</span>
+          <span class="winamp-bitrate">128kbps</span>
+          <span class="winamp-stereo">STEREO</span>
+        </div>
+      </div>
+      
+      <div class="winamp-scroll">
+        <span class="winamp-scroll-text">Kader est dans la place - Le son du cafe le plus cool du datacenter</span>
+      </div>
+      
+      <div class="winamp-seek">
+        <div class="winamp-seek-bg" id="seek-bar">
+          <div class="winamp-seek-progress" id="seek-progress"></div>
+        </div>
+      </div>
+      
+      <div class="winamp-controls">
+        <div class="winamp-control-btn" id="btn-prev" title="Previous">
+          <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+        </div>
+        <div class="winamp-control-btn" id="btn-play" title="Play">
+          <svg viewBox="0 0 24 24" id="play-icon"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+        <div class="winamp-control-btn" id="btn-pause" title="Pause">
+          <svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+        </div>
+        <div class="winamp-control-btn" id="btn-stop" title="Stop">
+          <svg viewBox="0 0 24 24"><path d="M6 6h12v12H6z"/></svg>
+        </div>
+        <div class="winamp-control-btn" id="btn-next" title="Next">
+          <svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+        </div>
+      </div>
+      
+      <div class="winamp-volume">
+        <span class="winamp-volume-label">VOL</span>
+        <div class="winamp-volume-bar" id="volume-bar"></div>
+        <span class="winamp-eq-toggle" id="eq-toggle">EQ</span>
+      </div>
+    </div>
+    
+    <audio id="player">
+      <source src="https://kader.cafe/kader-est-dans-la-place.mp3" type="audio/mpeg">
+      Ton navigateur ne supporte pas l'audio.
+    </audio>
+    
+    <div class="image-container">
+      <div class="image-frame">
+        <img src="kader-cafe.jpg" alt="Kader Image">
+      </div>
+    </div>
   </div>
+  
+  <div class="marquee-container">
+    <div class="marquee-text">
+      &#x2764;&#xFE0F; BIENVENUE CHEZ KADER &#x2764;&#xFE0F; LE MEILLEUR CAFE DU DATACENTER &#x2764;&#xFE0F; FRITES MAISON &#x2764;&#xFE0F; AMBIANCE GARANTIE &#x2764;&#xFE0F; BIENVENUE CHEZ KADER &#x2764;&#xFE0F; LE MEILLEUR CAFE DU DATACENTER &#x2764;&#xFE0F;
+    </div>
+  </div>
+  
   <script>
     const player = document.getElementById("player");
+    const playBtn = document.getElementById("btn-play");
+    const pauseBtn = document.getElementById("btn-pause");
+    const stopBtn = document.getElementById("btn-stop");
+    const seekBar = document.getElementById("seek-bar");
+    const seekProgress = document.getElementById("seek-progress");
+    const timeDisplay = document.getElementById("time-display");
+    const visualizer = document.getElementById("visualizer");
+    const volumeBar = document.getElementById("volume-bar");
+    const eqToggle = document.getElementById("eq-toggle");
+    
+    const NUM_BARS = 20;
+    const NUM_VOLUME_SEGMENTS = 15;
+    let isPlaying = false;
+    let vizInterval;
+    let barHeights = new Array(NUM_BARS).fill(0);
+    
+    for (let i = 0; i < NUM_BARS; i++) {
+      const bar = document.createElement("div");
+      bar.className = "viz-bar";
+      bar.style.height = "2px";
+      visualizer.appendChild(bar);
+    }
+    const vizBars = visualizer.querySelectorAll(".viz-bar");
+    
+    for (let i = 0; i < NUM_VOLUME_SEGMENTS; i++) {
+      const segment = document.createElement("div");
+      segment.className = "winamp-volume-segment";
+      segment.dataset.index = i;
+      if (i < 12) segment.classList.add("active");
+      volumeBar.appendChild(segment);
+    }
+    const volumeSegments = volumeBar.querySelectorAll(".winamp-volume-segment");
+    
+    function animateVisualizer() {
+      vizBars.forEach((bar, i) => {
+        if (isPlaying) {
+          const target = Math.random() * 22 + 3;
+          barHeights[i] += (target - barHeights[i]) * 0.3;
+        } else {
+          barHeights[i] *= 0.85;
+        }
+        bar.style.height = Math.max(2, barHeights[i]) + "px";
+      });
+      requestAnimationFrame(animateVisualizer);
+    }
+    animateVisualizer();
+    
+    function formatTime(seconds) {
+      const mins = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60);
+      return mins.toString().padStart(2, "0") + ":" + secs.toString().padStart(2, "0");
+    }
+    
+    function updateProgress() {
+      if (player.duration) {
+        const percent = (player.currentTime / player.duration) * 100;
+        seekProgress.style.width = percent + "%";
+        timeDisplay.textContent = formatTime(player.currentTime);
+      }
+    }
+    
+    player.addEventListener("timeupdate", updateProgress);
+    
+    player.addEventListener("play", () => {
+      isPlaying = true;
+      playBtn.classList.add("playing");
+    });
+    
+    player.addEventListener("pause", () => {
+      isPlaying = false;
+      playBtn.classList.remove("playing");
+    });
+    
+    player.addEventListener("ended", () => {
+      isPlaying = false;
+      playBtn.classList.remove("playing");
+    });
+    
+    playBtn.addEventListener("click", () => {
+      player.play();
+    });
+    
+    pauseBtn.addEventListener("click", () => {
+      player.pause();
+    });
+    
+    stopBtn.addEventListener("click", () => {
+      player.pause();
+      player.currentTime = 0;
+      isPlaying = false;
+    });
+    
+    seekBar.addEventListener("click", (e) => {
+      const rect = seekBar.getBoundingClientRect();
+      const percent = (e.clientX - rect.left) / rect.width;
+      if (player.duration) {
+        player.currentTime = percent * player.duration;
+      }
+    });
+    
+    volumeBar.addEventListener("click", (e) => {
+      const rect = volumeBar.getBoundingClientRect();
+      const percent = (e.clientX - rect.left) / rect.width;
+      const activeCount = Math.round(percent * NUM_VOLUME_SEGMENTS);
+      player.volume = percent;
+      volumeSegments.forEach((seg, i) => {
+        seg.classList.toggle("active", i < activeCount);
+      });
+    });
+    
+    eqToggle.addEventListener("click", () => {
+      eqToggle.classList.toggle("active");
+    });
+    
     window.addEventListener("load", () => {
       const playPromise = player.play();
       if (playPromise !== undefined) {
@@ -189,6 +831,42 @@
         });
       }
     });
+    
+    const BASE_DATE = new Date("2025-11-28");
+    const BASE_COUNT = 14812;
+    const VISITORS_PER_DAY = 14;
+    
+    function calculateVisitors() {
+      const now = new Date();
+      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      const baseDay = new Date(BASE_DATE.getFullYear(), BASE_DATE.getMonth(), BASE_DATE.getDate());
+      const diffTime = today - baseDay;
+      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+      return BASE_COUNT + (diffDays * VISITORS_PER_DAY);
+    }
+    
+    const counterEl = document.getElementById("visitor-count");
+    let displayedCount = calculateVisitors();
+    counterEl.textContent = displayedCount.toString().padStart(6, "0");
+    
+    setInterval(() => {
+      if (Math.random() < 0.3) {
+        displayedCount += 1;
+        counterEl.textContent = displayedCount.toString().padStart(6, "0");
+      }
+    }, 5000);
+    
+    const sparkles = ["&#x2728;", "&#x2B50;", "&#x1F31F;", "&#x2764;&#xFE0F;", "&#x1F496;"];
+    function createSparkle() {
+      const sparkle = document.createElement("div");
+      sparkle.className = "sparkle";
+      sparkle.innerHTML = sparkles[Math.floor(Math.random() * sparkles.length)];
+      sparkle.style.left = Math.random() * 100 + "vw";
+      sparkle.style.top = "-20px";
+      document.body.appendChild(sparkle);
+      setTimeout(() => sparkle.remove(), 3000);
+    }
+    setInterval(createSparkle, 500);
   </script>
 </body>
 </html>
