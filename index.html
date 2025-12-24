@@ -35,7 +35,7 @@
     position: relative;
     z-index: 10;
     padding: 15px;
-    padding-bottom: 100px;
+    padding-bottom: 150px; /* Espace pour le livre d'or */
   }
   
   h1 {
@@ -70,6 +70,7 @@
     to { transform: scale(1.3); }
   }
   
+  /* --- WINAMP PLAYER --- */
   .winamp-player {
     background: linear-gradient(180deg, #1e1e1e 0%, #2a2a2a 50%, #1a1a1a 100%);
     border: 2px solid #3a3a3a;
@@ -160,13 +161,7 @@
     align-items: center;
   }
   
-  .winamp-bitrate {
-    color: #00cc00;
-    font-size: 9px;
-    font-family: "Courier New", monospace;
-  }
-  
-  .winamp-stereo {
+  .winamp-bitrate, .winamp-stereo {
     color: #00cc00;
     font-size: 9px;
     font-family: "Courier New", monospace;
@@ -250,24 +245,13 @@
     transition: all 0.1s;
   }
   
-  .winamp-control-btn:active {
-    border-style: inset;
-    background: linear-gradient(180deg, #3a3a3a 0%, #4a4a4a 50%, #3a3a3a 100%);
-  }
-  
   .winamp-control-btn svg {
     width: 12px;
     height: 12px;
     fill: #ddd;
   }
   
-  .winamp-control-btn:hover svg {
-    fill: #fff;
-  }
-  
-  .winamp-control-btn.playing svg {
-    fill: #00ff00;
-  }
+  .winamp-control-btn.playing svg { fill: #00ff00; }
   
   .winamp-volume {
     display: flex;
@@ -277,21 +261,13 @@
     background: linear-gradient(180deg, #1a1a1a 0%, #2a2a2a 100%);
   }
   
-  .winamp-volume-label {
-    color: #888;
-    font-size: 8px;
-    font-family: "Arial", sans-serif;
-  }
-  
   .winamp-volume-bar {
     flex: 1;
     height: 6px;
-    background: linear-gradient(180deg, #1a1a1a 0%, #2a2a2a 100%);
+    background: #1a1a1a;
     border: 1px inset #0a0a0a;
-    border-radius: 2px;
-    overflow: hidden;
-    cursor: pointer;
     display: flex;
+    cursor: pointer;
   }
   
   .winamp-volume-segment {
@@ -299,16 +275,10 @@
     height: 100%;
     margin-right: 1px;
     background: #1a1a1a;
-    transition: background 0.1s;
   }
   
   .winamp-volume-segment.active {
     background: linear-gradient(180deg, #4a9a4a 0%, #2a6a2a 100%);
-    box-shadow: 0 0 3px rgba(0, 255, 0, 0.3);
-  }
-  
-  .winamp-volume-segment:last-child {
-    margin-right: 0;
   }
   
   .winamp-eq-toggle {
@@ -318,14 +288,11 @@
     padding: 2px 4px;
     border: 1px outset #444;
     background: #2a2a2a;
-    border-radius: 2px;
   }
   
-  .winamp-eq-toggle.active {
-    color: #00ff00;
-    border-style: inset;
-  }
-  
+  .winamp-eq-toggle.active { color: #00ff00; border-style: inset; }
+
+  /* --- IMAGES --- */
   .image-container {
     margin: 25px auto;
     padding: 15px;
@@ -356,17 +323,35 @@
     display: block;
     transition: transform 0.3s ease;
   }
-  
-  img:active {
-    transform: scale(0.98);
+
+  /* --- GUESTBOOK KADER --- */
+  .kader-guestbook {
+    background: rgba(0, 0, 0, 0.85);
+    border: 5px double #00ffff;
+    border-radius: 15px;
+    padding: 25px;
+    margin: 40px auto;
+    max-width: 700px;
+    box-shadow: 0 0 25px #ff00ff;
+    text-align: left; /* Pour le formulaire Cusdis */
   }
-  
-  @media (hover: hover) {
-    img:hover {
-      transform: rotate(-3deg) scale(1.03);
-    }
+
+  .guestbook-header {
+    text-align: center;
+    color: #ffff00;
+    text-shadow: 2px 2px #000;
+    font-size: 1.5em;
+    margin-bottom: 25px;
+    text-transform: uppercase;
   }
-  
+
+  /* Pour éviter le scroll interne dans le widget */
+  #cusdis_thread iframe {
+    width: 100% !important;
+    min-height: 500px !important; /* On donne de la place */
+  }
+
+  /* --- EMOJIS ORIGINAUX --- */
   .emoji-colonne {
     position: fixed;
     top: 0;
@@ -379,38 +364,22 @@
     pointer-events: none;
     z-index: 5;
   }
-  
-  .emoji-gauche {
-    left: 5px;
-  }
-  
-  .emoji-droit {
-    right: 5px;
-  }
-  
-  .emoji-colonne span {
-    font-size: clamp(1.2em, 4vw, 2em);
-    display: block;
-  }
-  
-  .emoji-gauche span {
-    animation: clignoter-emoji 1.5s infinite alternate;
-  }
-  
-  .emoji-droit span {
-    animation: tourner 3s infinite linear;
-  }
+  .emoji-gauche { left: 5px; }
+  .emoji-droit { right: 5px; }
+  .emoji-colonne span { font-size: clamp(1.2em, 4vw, 2em); display: block; }
+  .emoji-gauche span { animation: clignoter-emoji 1.5s infinite alternate; }
+  .emoji-droit span { animation: tourner 3s infinite linear; }
   
   @keyframes clignoter-emoji {
     from { transform: translateY(0) scale(1); opacity: 0.7; }
     to { transform: translateY(-8px) scale(1.2); opacity: 1; }
   }
-  
   @keyframes tourner {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
   }
   
+  /* --- FUMÉE ORIGINALE --- */
   .fumee-container {
     position: fixed;
     bottom: 0;
@@ -421,7 +390,6 @@
     z-index: 1;
     overflow: hidden;
   }
-  
   .fumee {
     position: absolute;
     bottom: -100px;
@@ -430,46 +398,20 @@
     height: 250px;
     background:
       radial-gradient(ellipse at 10% 100%, rgba(200, 200, 200, 0.4) 0%, transparent 70%),
-      radial-gradient(ellipse at 30% 90%, rgba(200, 200, 200, 0.3) 0%, transparent 60%),
       radial-gradient(ellipse at 50% 100%, rgba(200, 200, 200, 0.4) 0%, transparent 70%),
-      radial-gradient(ellipse at 70% 95%, rgba(200, 200, 200, 0.3) 0%, transparent 60%),
       radial-gradient(ellipse at 90% 100%, rgba(200, 200, 200, 0.4) 0%, transparent 70%);
     animation: monter 12s linear infinite;
     opacity: 0.7;
     filter: blur(25px);
   }
   
-  .fumee:nth-child(2) {
-    animation-delay: -4s;
-    opacity: 0.5;
-  }
-  
-  .fumee:nth-child(3) {
-    animation-delay: -8s;
-    opacity: 0.6;
-  }
-  
   @keyframes monter {
-    0% {
-      transform: translateY(0) scale(0.8) translateX(0);
-      opacity: 0.7;
-    }
-    25% {
-      transform: translateY(-100px) scale(0.9) translateX(20px);
-    }
-    50% {
-      opacity: 0.4;
-      transform: translateY(-200px) scale(1) translateX(-10px);
-    }
-    75% {
-      transform: translateY(-300px) scale(1.1) translateX(15px);
-    }
-    100% {
-      transform: translateY(-500px) scale(1.3) translateX(0);
-      opacity: 0;
-    }
+    0% { transform: translateY(0) scale(0.8) translateX(0); opacity: 0.7; }
+    50% { opacity: 0.4; transform: translateY(-200px) scale(1) translateX(-10px); }
+    100% { transform: translateY(-500px) scale(1.3) translateX(0); opacity: 0; }
   }
   
+  /* --- MARQUEE & COUNTER --- */
   .marquee-container {
     position: fixed;
     bottom: 0;
@@ -481,14 +423,8 @@
     padding: 12px 0;
     z-index: 20;
     border-top: 3px solid #fff;
-    box-shadow: 0 -5px 20px rgba(0,0,0,0.3);
   }
-  
-  @keyframes marquee-bg {
-    0% { background-position: 0% 50%; }
-    100% { background-position: 200% 50%; }
-  }
-  
+  @keyframes marquee-bg { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
   .marquee-text {
     white-space: nowrap;
     animation: scroll-text 15s linear infinite;
@@ -498,11 +434,7 @@
     display: inline-block;
     padding-left: 100%;
   }
-  
-  @keyframes scroll-text {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-100%); }
-  }
+  @keyframes scroll-text { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
   
   .sparkle {
     position: fixed;
@@ -511,16 +443,9 @@
     font-size: 1.5em;
     animation: sparkle-fall 3s linear forwards;
   }
-  
   @keyframes sparkle-fall {
-    0% { 
-      opacity: 1; 
-      transform: translateY(0) rotate(0deg) scale(1);
-    }
-    100% { 
-      opacity: 0; 
-      transform: translateY(100vh) rotate(720deg) scale(0.3);
-    }
+    0% { opacity: 1; transform: translateY(0) rotate(0deg) scale(1); }
+    100% { opacity: 0; transform: translateY(100vh) rotate(720deg) scale(0.3); }
   }
   
   .counter {
@@ -530,105 +455,31 @@
     padding: 8px 15px;
     margin: 15px auto;
     display: inline-block;
-    font-size: clamp(0.8em, 2.5vw, 1em);
     animation: blink-border 1s infinite;
   }
-  
-  @keyframes blink-border {
-    0%, 100% { border-color: #ffff00; }
-    50% { border-color: #ff00ff; }
-  }
-  
-  .guestbook-btn {
-    background: linear-gradient(180deg, #ffcc00, #ff6600);
-    border: 3px outset #ffcc00;
-    color: #000;
-    font-family: "Comic Sans MS", cursive;
-    font-size: clamp(0.9em, 3vw, 1.1em);
-    font-weight: bold;
-    padding: 12px 25px;
-    margin: 15px 10px;
-    cursor: pointer;
-    border-radius: 10px;
-    text-shadow: 1px 1px #fff;
-    box-shadow: 3px 3px 0 #000;
-    transition: all 0.1s;
-    display: inline-block;
-    text-decoration: none;
-  }
-  
-  .guestbook-btn:active {
-    transform: translate(2px, 2px);
-    box-shadow: 1px 1px 0 #000;
-  }
-  
+  @keyframes blink-border { 0%, 100% { border-color: #ffff00; } 50% { border-color: #ff00ff; } }
+
+  /* Media Queries */
   @media (max-width: 480px) {
-    .emoji-colonne {
-      width: 28px;
-    }
-    
-    .main-content {
-      padding: 10px 5px;
-      padding-bottom: 80px;
-    }
-    
-    .winamp-player {
-      margin: 15px 10px;
-      max-width: calc(100% - 20px);
-    }
-    
-    .image-container {
-      padding: 10px 5px;
-    }
-    
-    .image-frame {
-      padding: 5px;
-    }
-  }
-  
-  @media (min-width: 768px) {
-    .main-content {
-      max-width: 700px;
-      margin: 0 auto;
-    }
-    
-    .emoji-colonne {
-      width: 50px;
-    }
-    
-    .emoji-colonne span {
-      font-size: 2.5em;
-    }
+    .main-content { padding-bottom: 120px; }
+    .kader-guestbook { margin: 20px 5px; padding: 10px; }
   }
 </style>
 </head>
 <body>
   <div class="emoji-colonne emoji-gauche">
-    <span>&#x1F6AC;</span>
-    <span>&#x2615;</span>
-    <span>&#x1F6AC;</span>
-    <span>&#x2615;</span>
-    <span>&#x1F6AC;</span>
-    <span>&#x2615;</span>
-    <span>&#x1F6AC;</span>
+    <span>&#x1F6AC;</span><span>&#x2615;</span><span>&#x1F6AC;</span><span>&#x2615;</span><span>&#x1F6AC;</span><span>&#x2615;</span><span>&#x1F6AC;</span>
   </div>
-  
   <div class="emoji-colonne emoji-droit">
-    <span>&#x1F35F;</span>
-    <span>&#x1F355;</span>
-    <span>&#x1F35F;</span>
-    <span>&#x1F355;</span>
-    <span>&#x1F35F;</span>
-    <span>&#x1F355;</span>
-    <span>&#x1F35F;</span>
+    <span>&#x1F35F;</span><span>&#x1F355;</span><span>&#x1F35F;</span><span>&#x1F355;</span><span>&#x1F35F;</span><span>&#x1F355;</span><span>&#x1F35F;</span>
   </div>
   
   <div class="fumee-container">
     <div class="fumee"></div>
-    <div class="fumee"></div>
-    <div class="fumee"></div>
+    <div class="fumee" style="animation-delay: -4s;"></div>
+    <div class="fumee" style="animation-delay: -8s;"></div>
   </div>
-  
+
   <div class="main-content">
     <h1><span class="stars">&#x2605;</span> Bienvenue sur l'Internet de Kader <span class="stars">&#x2605;</span></h1>
     
@@ -639,12 +490,8 @@
     <div class="winamp-player">
       <div class="winamp-titlebar">
         <span class="winamp-title">WINAMP</span>
-        <div class="winamp-buttons">
-          <div class="winamp-btn">_</div>
-          <div class="winamp-btn">x</div>
-        </div>
+        <div class="winamp-buttons"><div class="winamp-btn">_</div><div class="winamp-btn">x</div></div>
       </div>
-      
       <div class="winamp-display">
         <div class="winamp-visualizer" id="visualizer"></div>
         <div class="winamp-info">
@@ -653,37 +500,21 @@
           <span class="winamp-stereo">STEREO</span>
         </div>
       </div>
-      
       <div class="winamp-scroll">
-        <span class="winamp-scroll-text">Kader est dans la place - Le son du cafe le plus cool du datacenter</span>
+        <span class="winamp-scroll-text">Kader est dans la place - Le son du cafe le plus cool du datacenter - Laisse un message dans le livre d'or !</span>
       </div>
-      
       <div class="winamp-seek">
-        <div class="winamp-seek-bg" id="seek-bar">
-          <div class="winamp-seek-progress" id="seek-progress"></div>
-        </div>
+        <div class="winamp-seek-bg" id="seek-bar"><div class="winamp-seek-progress" id="seek-progress"></div></div>
       </div>
-      
       <div class="winamp-controls">
-        <div class="winamp-control-btn" id="btn-prev" title="Previous">
-          <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
-        </div>
-        <div class="winamp-control-btn" id="btn-play" title="Play">
-          <svg viewBox="0 0 24 24" id="play-icon"><path d="M8 5v14l11-7z"/></svg>
-        </div>
-        <div class="winamp-control-btn" id="btn-pause" title="Pause">
-          <svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-        </div>
-        <div class="winamp-control-btn" id="btn-stop" title="Stop">
-          <svg viewBox="0 0 24 24"><path d="M6 6h12v12H6z"/></svg>
-        </div>
-        <div class="winamp-control-btn" id="btn-next" title="Next">
-          <svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
-        </div>
+        <div class="winamp-control-btn" id="btn-prev"><svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg></div>
+        <div class="winamp-control-btn" id="btn-play"><svg viewBox="0 0 24 24" id="play-icon"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="winamp-control-btn" id="btn-pause"><svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></div>
+        <div class="winamp-control-btn" id="btn-stop"><svg viewBox="0 0 24 24"><path d="M6 6h12v12H6z"/></svg></div>
+        <div class="winamp-control-btn" id="btn-next"><svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg></div>
       </div>
-      
       <div class="winamp-volume">
-        <span class="winamp-volume-label">VOL</span>
+        <span style="font-size: 8px; color: #888;">VOL</span>
         <div class="winamp-volume-bar" id="volume-bar"></div>
         <span class="winamp-eq-toggle" id="eq-toggle">EQ</span>
       </div>
@@ -691,7 +522,6 @@
     
     <audio id="player">
       <source src="https://kader.cafe/kader-est-dans-la-place.mp3" type="audio/mpeg">
-      Ton navigateur ne supporte pas l'audio.
     </audio>
     
     <div class="image-container">
@@ -699,15 +529,31 @@
         <img src="kader-cafe.jpg" alt="Kader Image">
       </div>
     </div>
-  </div>
-  
-  <div class="marquee-container">
+
+    <div class="kader-guestbook">
+      <div class="guestbook-header">
+        <span class="stars">&#x2605;</span> Livre d'Or<span class="stars">&#x2605;</span>
+      </div>
+      
+      <div id="cusdis_thread"
+        data-host="https://cusdis.com"
+        data-app-id="18782161-3d45-4e12-8d3b-b51c2b23901d"
+        data-page-id="kader_cafe_home"
+        data-page-url="https://kader.cafe"
+        data-page-title="Kader Cafe"
+        data-theme="dark"
+      ></div>
+      <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+    </div>
+
+  </div> <div class="marquee-container">
     <div class="marquee-text">
-      &#x2764;&#xFE0F; BIENVENUE CHEZ KADER &#x2764;&#xFE0F; LE MEILLEUR CAFE DU DATACENTER &#x2764;&#xFE0F; FRITES MAISON &#x2764;&#xFE0F; AMBIANCE GARANTIE &#x2764;&#xFE0F; BIENVENUE CHEZ KADER &#x2764;&#xFE0F; LE MEILLEUR CAFE DU DATACENTER &#x2764;&#xFE0F;
+      &#x2764;&#xFE0F; BIENVENUE CHEZ KADER &#x2764;&#xFE0F; LE MEILLEUR CAFE DU DATACENTER &#x2764;&#xFE0F; FRITES MAISON &#x2764;&#xFE0F; AMBIANCE GARANTIE &#x2764;&#xFE0F; LAISSE UN MOT DANS LE LIVRE D'OR !
     </div>
   </div>
-  
+
   <script>
+    // --- JS ORIGINAL INTEGRAL ---
     const player = document.getElementById("player");
     const playBtn = document.getElementById("btn-play");
     const pauseBtn = document.getElementById("btn-pause");
@@ -722,7 +568,6 @@
     const NUM_BARS = 20;
     const NUM_VOLUME_SEGMENTS = 15;
     let isPlaying = false;
-    let vizInterval;
     let barHeights = new Array(NUM_BARS).fill(0);
     
     for (let i = 0; i < NUM_BARS; i++) {
@@ -736,7 +581,6 @@
     for (let i = 0; i < NUM_VOLUME_SEGMENTS; i++) {
       const segment = document.createElement("div");
       segment.className = "winamp-volume-segment";
-      segment.dataset.index = i;
       if (i < 12) segment.classList.add("active");
       volumeBar.appendChild(segment);
     }
@@ -762,51 +606,26 @@
       return mins.toString().padStart(2, "0") + ":" + secs.toString().padStart(2, "0");
     }
     
-    function updateProgress() {
+    player.addEventListener("timeupdate", () => {
       if (player.duration) {
         const percent = (player.currentTime / player.duration) * 100;
         seekProgress.style.width = percent + "%";
         timeDisplay.textContent = formatTime(player.currentTime);
       }
-    }
-    
-    player.addEventListener("timeupdate", updateProgress);
-    
-    player.addEventListener("play", () => {
-      isPlaying = true;
-      playBtn.classList.add("playing");
     });
     
-    player.addEventListener("pause", () => {
-      isPlaying = false;
-      playBtn.classList.remove("playing");
-    });
+    player.addEventListener("play", () => { isPlaying = true; playBtn.classList.add("playing"); });
+    player.addEventListener("pause", () => { isPlaying = false; playBtn.classList.remove("playing"); });
+    player.addEventListener("ended", () => { isPlaying = false; playBtn.classList.remove("playing"); });
     
-    player.addEventListener("ended", () => {
-      isPlaying = false;
-      playBtn.classList.remove("playing");
-    });
-    
-    playBtn.addEventListener("click", () => {
-      player.play();
-    });
-    
-    pauseBtn.addEventListener("click", () => {
-      player.pause();
-    });
-    
-    stopBtn.addEventListener("click", () => {
-      player.pause();
-      player.currentTime = 0;
-      isPlaying = false;
-    });
+    playBtn.addEventListener("click", () => { player.play(); });
+    pauseBtn.addEventListener("click", () => { player.pause(); });
+    stopBtn.addEventListener("click", () => { player.pause(); player.currentTime = 0; isPlaying = false; });
     
     seekBar.addEventListener("click", (e) => {
       const rect = seekBar.getBoundingClientRect();
       const percent = (e.clientX - rect.left) / rect.width;
-      if (player.duration) {
-        player.currentTime = percent * player.duration;
-      }
+      if (player.duration) player.currentTime = percent * player.duration;
     });
     
     volumeBar.addEventListener("click", (e) => {
@@ -814,50 +633,27 @@
       const percent = (e.clientX - rect.left) / rect.width;
       const activeCount = Math.round(percent * NUM_VOLUME_SEGMENTS);
       player.volume = percent;
-      volumeSegments.forEach((seg, i) => {
-        seg.classList.toggle("active", i < activeCount);
-      });
+      volumeSegments.forEach((seg, i) => { seg.classList.toggle("active", i < activeCount); });
     });
     
-    eqToggle.addEventListener("click", () => {
-      eqToggle.classList.toggle("active");
-    });
+    eqToggle.addEventListener("click", () => { eqToggle.classList.toggle("active"); });
     
-    window.addEventListener("load", () => {
-      const playPromise = player.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(() => {
-          console.log("Autoplay blocked: user interaction required.");
-        });
-      }
-    });
-    
+    // --- COMPTEUR ET SPARKLES ---
     const BASE_DATE = new Date("2025-11-28");
     const BASE_COUNT = 14812;
-    const VISITORS_PER_DAY = 14;
-    
+    const counterEl = document.getElementById("visitor-count");
+    let displayedCount = BASE_COUNT;
+
     function calculateVisitors() {
       const now = new Date();
-      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-      const baseDay = new Date(BASE_DATE.getFullYear(), BASE_DATE.getMonth(), BASE_DATE.getDate());
-      const diffTime = today - baseDay;
-      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-      return BASE_COUNT + (diffDays * VISITORS_PER_DAY);
+      const diffDays = Math.floor((now - BASE_DATE) / (1000 * 60 * 60 * 24));
+      return BASE_COUNT + (diffDays * 14);
     }
-    
-    const counterEl = document.getElementById("visitor-count");
-    let displayedCount = calculateVisitors();
+    displayedCount = calculateVisitors();
     counterEl.textContent = displayedCount.toString().padStart(6, "0");
-    
-    setInterval(() => {
-      if (Math.random() < 0.3) {
-        displayedCount += 1;
-        counterEl.textContent = displayedCount.toString().padStart(6, "0");
-      }
-    }, 5000);
-    
+
     const sparkles = ["&#x2728;", "&#x2B50;", "&#x1F31F;", "&#x2764;&#xFE0F;", "&#x1F496;"];
-    function createSparkle() {
+    setInterval(() => {
       const sparkle = document.createElement("div");
       sparkle.className = "sparkle";
       sparkle.innerHTML = sparkles[Math.floor(Math.random() * sparkles.length)];
@@ -865,8 +661,7 @@
       sparkle.style.top = "-20px";
       document.body.appendChild(sparkle);
       setTimeout(() => sparkle.remove(), 3000);
-    }
-    setInterval(createSparkle, 500);
+    }, 500);
   </script>
 </body>
 </html>
